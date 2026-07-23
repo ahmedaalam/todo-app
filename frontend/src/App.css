@@ -1,7 +1,54 @@
 /* Body */
 body {
-  background-color: aliceblue;
   height: 100vh;
+}
+
+/* Header */
+nav {
+  height: 60px;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 40px;
+  padding-left: 40px;
+}
+
+.nav-icons {
+  display: flex;
+  gap: 32px;
+}
+
+/* Main */
+main {
+  background-color: aqua;
+  padding-left: 40px;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+}
+
+ul li {
+  background-color: aquamarine;
+  height: 76px;
+  width: 50%;
+
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.plus {
+  background-color: black;
+  color: aliceblue;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
