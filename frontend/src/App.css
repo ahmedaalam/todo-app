@@ -1,0 +1,7 @@
+/* Body */
+body {
+  background-color: aliceblue;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
