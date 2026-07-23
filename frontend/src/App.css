@@ -31,7 +31,6 @@ ul {
 }
 
 ul li {
-  background-color: aquamarine;
   height: 76px;
   width: 50%;
   border: none;
@@ -39,9 +38,37 @@ ul li {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0px 20px;
 }
 
+.wrapper {
+  display: flex;
+  gap: 16px;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid black;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+}
+
+input[type="checkbox"]:checked {
+  background: black;
+}
+
+input[type="checkbox"]:checked::after {
+  content: "✓";
+  color: white;
+  position: absolute;
+  top: -2px;
+  left: 2px;
+  font-size: 14px;
+}
 .plus-btn {
   background-color: black;
   color: aliceblue;

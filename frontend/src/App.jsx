@@ -58,8 +58,11 @@ function App() {
           <ul>
             {todos.map((todo) => (
               <li key={todo.id}>
-                <input type="checkbox" onChange={deleteTodo} />
-                {todo.text}
+                <div className="wrapper">
+                  <input className="check-box" type="checkbox" />
+                  {todo.text}
+                </div>
+                <X onClick={() => deleteTodo(todo.id)} />
               </li>
             ))}
           </ul>
