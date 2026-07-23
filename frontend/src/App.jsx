@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import "./Modal.css";
-import { Search, Plus, Menu, UserCircle, Cross, CrossIcon } from "lucide-react";
+import { Search, Plus, Menu, UserCircle, X } from "lucide-react";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -39,6 +39,7 @@ function App() {
 
   return (
     <div>
+      {/* Header */}
       <header>
         <nav>
           <Menu />
@@ -49,29 +50,49 @@ function App() {
         </nav>
       </header>
 
+      {/* Main */}
       <main>
         <section>
           <h1>All Tasks</h1>
 
           <ul>
             {todos.map((todo) => (
-              <li key={todo.id}>{todo.text}</li>
+              <li key={todo.id}>
+                <input type="checkbox" onChange={deleteTodo} />
+                {todo.text}
+              </li>
             ))}
           </ul>
         </section>
 
         {/* Modal */}
         <div>
-          <button className="plus" onClick={() => setIsOpen(true)}>
+          <button className="plus-btn" onClick={() => setIsOpen(true)}>
             <Plus size={20} />
           </button>
 
           {isOpen && (
             <div className="modal show">
               <div className="modal-content">
-                <input value={text} onChange={(e) => setText(e.target.value)} />
-                <button onClick={addTodo}>Add Task</button>
-                <button onClick={() => setIsOpen(false)}>Close</button>
+                <div className="close-icon">
+                  <X onClick={() => setIsOpen(false)} />
+                </div>
+
+                <div className="container">
+                  <input
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                  />
+                  <button
+                    className="add-btn"
+                    onClick={() => {
+                      addTodo();
+                      setIsOpen(false);
+                    }}
+                  >
+                    Add Task
+                  </button>
+                </div>
               </div>
             </div>
           )}

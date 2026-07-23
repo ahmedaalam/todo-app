@@ -14,8 +14,35 @@
 
 .modal-content {
   background: white;
+  height: 300px;
   width: 300px;
   margin: 100px auto;
   padding: 20px;
+  border-radius: 8px;
+}
+
+.close-icon {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.container {
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.container input {
+  padding: 8px 32px;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+.add-btn {
+  background-color: black;
+  color: white;
+  padding: 12px;
+  border: none;
   border-radius: 8px;
 }
