@@ -1,12 +1,21 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import "./Modal.css";
-import { Search, Plus, Menu, UserCircle, X } from "lucide-react";
+import {
+  Search,
+  Plus,
+  Menu,
+  UserCircle,
+  X,
+  Calendar,
+  Settings,
+  CheckSquare,
+} from "lucide-react";
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [text, setText] = useState("");
-  const [isOpen, setIsOpen] = useState("false");
+  const [isOpen, setIsOpen] = useState(false);
 
   const fetchTodos = async () => {
     const res = await fetch("http://localhost:5000/todos");
@@ -37,6 +46,17 @@ function App() {
     fetchTodos();
   };
 
+  async function toggleDone(id) {
+    // show strikethrough immediately (optimistic UI)
+    setTodos(
+      todos.map((todo) => (todo.id === id ? { ...todo, done: true } : todo)),
+    );
+
+    setTimeout(async () => {
+      await deleteTodo(id); // this already calls the API + refetches
+    }, 1500);
+  }
+
   return (
     <div>
       {/* Header */}
@@ -59,10 +79,21 @@ function App() {
             {todos.map((todo) => (
               <li key={todo.id}>
                 <div className="wrapper">
-                  <input className="check-box" type="checkbox" />
+                  <input
+                    className="check-box"
+                    type="checkbox"
+                    checked={todo.done}
+                    onChange={() => toggleDone(todo.id)}
+                  />
                   {todo.text}
                 </div>
-                <X onClick={() => deleteTodo(todo.id)} />
+                <button
+                  className="icon-btn"
+                  onClick={() => deleteTodo(todo.id)}
+                  aria-label="Delete task"
+                >
+                  <X size={18} />
+                </button>
               </li>
             ))}
           </ul>
@@ -70,10 +101,6 @@ function App() {
 
         {/* Modal */}
         <div>
-          <button className="plus-btn" onClick={() => setIsOpen(true)}>
-            <Plus size={20} />
-          </button>
-
           {isOpen && (
             <div className="modal show">
               <div className="modal-content">
@@ -85,6 +112,13 @@ function App() {
                   <input
                     value={text}
                     onChange={(e) => setText(e.target.value)}
+                    placeholder="What do you need to do?"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        addTodo();
+                        setIsOpen(false);
+                      }
+                    }}
                   />
                   <button
                     className="add-btn"
@@ -101,6 +135,30 @@ function App() {
           )}
         </div>
       </main>
+
+      {/* Footer */}
+      <footer>
+        <section className="section-1">
+          <button className="plus-btn" onClick={() => setIsOpen(true)}>
+            <Plus size={20} />
+          </button>
+        </section>
+
+        <section className="section-2">
+          <div className="sub-section">
+            <CheckSquare />
+            <p>Tasks</p>
+          </div>
+          <div className="sub-section">
+            <Calendar />
+            <p>Calender</p>
+          </div>
+          <div className="sub-section">
+            <Settings />
+            <p>Settings</p>
+          </div>
+        </section>
+      </footer>
     </div>
   );
 }
